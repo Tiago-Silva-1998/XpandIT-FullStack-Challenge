@@ -1,6 +1,6 @@
 import { Client } from '@elastic/elasticsearch'
 
-const client = new Client({ node: 'http://localhost:9200' })
+const client = new Client({ node: process.env.ELASTICSEARCH_URL })
 const indexName = 'movies'
 
 export const getAllMovies = async (from = 0, size = 10) => {

@@ -16,7 +16,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.use(express.static('client/build'))
+app.use(express.static(path.join(__dirname, '/client/public/')))
 
 // RQ001
 // GET Movies infinite scrolling
@@ -32,8 +32,8 @@ app.get('/api/movies/:id', api.getMovieDetails)
 app.get('/api/top', api.getTopMoviesByRevenue)
 
 // Serve SPA
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/public', 'index.html'))
+app.get('/app', (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/public/', 'index.html'))
 })
 
 app.listen(8080, () => {

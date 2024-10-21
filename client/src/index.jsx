@@ -1,5 +1,6 @@
-import React from 'react'
-import createBrowserRouter from 'react-router-dom'
+import React from "react"
+import { createRoot } from "react-dom/client"
 
 
-const router = createBrowserRouter()
+const root = createRoot(document.getElementById('root'))
+root.render(<h1>Hello World</h1>)
