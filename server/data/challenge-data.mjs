@@ -9,12 +9,7 @@ export const getAllMovies = async (from = 0, size = 10) => {
             index: indexName,
             from: from,
             size: size,
-            sort: {
-                vote_average: { order: 'desc' },
-            },
-            query: {
-                match_all: {},
-            },
+            sort: { vote_average: { order: 'desc' } }
         })
 
         return body.hits.hits.map((hit, idx) => {
@@ -24,7 +19,7 @@ export const getAllMovies = async (from = 0, size = 10) => {
                     ranking: idx + from + 1,
                     title: hit._source.title,
                     year: hit._source.year,
-                    revenue: hit._source.revenue === 0? 'No Data' : hit._source.revenue,
+                    revenue: hit._source.revenue
                 }
             }
         })
@@ -38,7 +33,7 @@ export const getMovieDetails = async (id) => {
     try {
         const { body } = await client.get({
             index: indexName,
-            id,
+            id
         })
 
         return body._source

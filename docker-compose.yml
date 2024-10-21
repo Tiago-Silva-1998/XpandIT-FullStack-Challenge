@@ -6,14 +6,13 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      elasticsearch:
-        condition: service_healthy
+      - elasticsearch
     volumes:
         - .:/app
     environment:
       - NODE_ENV=development
       - ELASTICSEARCH_URL=http://elasticsearch:9200
-    command: ["sh", "-c", "npm run build_db"]
+    command: ["sh", "-c", "npm run build_db && npm run start"]
 
   elasticsearch:
     image: elasticsearch:8.9.0
@@ -22,9 +21,3 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
-    healthcheck:
-      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep '\"status\":\"green\"' || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 30s

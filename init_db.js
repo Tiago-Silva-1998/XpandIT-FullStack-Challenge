@@ -10,8 +10,24 @@ function readJSONFile(filePath) {
     return JSON.parse(data)
 }
 
+function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)) }
+
 async function bulkIndex(indexName, data) {
-    const body = data.flatMap((doc) => [{ index: { _index: indexName } }, doc,])
+
+    let online = false
+    while (!online) {
+        try {
+            await client.cluster.health({wait_for_status: 'yellow'})
+            online = true
+        } catch (ConnectionError) {
+            await sleep(1000)
+        }
+    }
+
+    const index = await client.indices.exists({ index: indexName })
+    if (index) return
+
+    const body = data.filter((doc) => doc.revenue > 0).flatMap((doc) => [{ index: { _index: indexName } }, doc])
 
     const bulkResponse = await client.bulk({ refresh: true, body })
 
