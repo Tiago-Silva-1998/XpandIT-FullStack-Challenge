@@ -7,11 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "start": "node server/challenge-server.mjs",
+    "build_db": "node init_db.js",
     "up": "webpack && node server/challenge-server.mjs"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@elastic/elasticsearch": "^8.15.1",
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "react-router-dom": "^6.27.0",
