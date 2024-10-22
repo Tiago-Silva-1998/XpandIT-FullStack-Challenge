@@ -33,26 +33,28 @@
 
 .movie-row {
     display: grid;
-    grid-template-columns: 50px 1fr 100px 100px; /* Adjust column sizes */
-    column-gap: 20px; /* Spacing between columns */
+    grid-template-columns: 50px 1fr 100px 100px;
+    column-gap: 10px;
     padding: 10px 0;
-}
-
-.movie-row p {
     margin: 0;
-    text-align: left;
     font: normal normal normal 16px/20px Roboto;
     letter-spacing: 0px;
     color: #536B7A;
     opacity: 1;
 }
 
+.row-center {
+    text-align: center;
+}
+
+.row-left {
+    text-align: left;
+}
+
 .movie-header {
     display: grid;
     grid-template-columns: 50px 1fr 100px 100px;
     column-gap: 20px;
-    /* UI Properties */
-    text-align: left;
     font: normal normal bold 10px/20px Roboto;
     letter-spacing: 0px;
     color: #0B749B;

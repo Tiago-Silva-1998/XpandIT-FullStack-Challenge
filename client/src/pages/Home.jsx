@@ -37,10 +37,10 @@ export default function Home() {
             <h1 className="page-title">Movie Ranking</h1>
             <div>
                 <div className="movie-header">
-                    <p>Ranking</p>
-                    <p>Title</p>
-                    <p>Year</p>
-                    <p>Revenue</p>
+                    <p className="row-center">Ranking</p>
+                    <p className="row-left">Title</p>
+                    <p className="row-center">Year</p>
+                    <p className="row-left">Revenue</p>
                 </div>
                 <InfiniteScroll
                     dataLength={movieList.length}
@@ -51,10 +51,10 @@ export default function Home() {
                 {movieList.map((movie) => {
                         return (
                             <div key={movie.id} className="movie-row">
-                                <p>{movie.info.ranking}</p>
-                                <p>{movie.info.title}</p>
-                                <p>{movie.info.year}</p>
-                                <p>${movie.info.revenue}</p>
+                                <p className="row-center">{movie.info.ranking}</p>
+                                <p className="row-left">{movie.info.title}</p>
+                                <p className="row-center">{movie.info.year}</p>
+                                <p className="row-left">{Number(movie.info.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD'})}</p>
                             </div>
                         )
                     })}
