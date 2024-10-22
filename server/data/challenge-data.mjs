@@ -4,47 +4,33 @@ const client = new Client({ node: process.env.ELASTICSEARCH_URL })
 const indexName = 'movies'
 
 export const getAllMovies = async (from = 0, size = 50) => {
-    try {
-        const body = await client.search({
-            index: indexName,
-            from: from,
-            size: size,
-            sort: { vote_average: { order: 'desc' } }
-        })
+    const response = await client.search({
+        index: indexName,
+        from: from,
+        size: size,
+        sort: { vote_average: { order: 'desc' } },
+        query: { range: { revenue: { gt: 0 } } }
+    })
 
-        return body.hits.hits.map((hit, idx) => {
-            return {
-                id: hit._id,
-                info: {
-                    ranking: idx + from + 1,
-                    title: hit._source.title,
-                    year: hit._source.release_date.split("-")[0],
-                    revenue: hit._source.revenue
-                }
+    return response.hits.hits.map((hit, idx) => {
+        return {
+            id: hit._id,
+            info: {
+                ranking: idx + from + 1,
+                title: hit._source.title,
+                year: hit._source.release_date.split("-")[0],
+                revenue: hit._source.revenue
             }
-        })
-    } catch (error) {
-        console.error('Error retrieving movies:', error)
-        throw error
-    }
+        }
+    })
 }
 
 export const getMovieDetails = async (id) => {
-    try {
-        const { body } = await client.get({
-            index: indexName,
-            id
-        })
-
-        return body._source
-    } catch (error) {
-        if (error.meta.statusCode === 404) {
-            console.error('Movie not found:', id)
-            return null
-        }
-        console.error('Error retrieving movie details:', error)
-        throw error
-    }
+    const response = await client.get({
+        index: indexName,
+        id: id
+    })
+    return response._source
 }
 
 export const getTopMoviesByRevenue = async (year, size = 10) => {

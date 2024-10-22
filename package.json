@@ -16,6 +16,7 @@
     "@elastic/elasticsearch": "^8.15.1",
     "cors": "^2.8.5",
     "express": "^4.21.1",
+    "file-loader": "^6.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-infinite-scroll-component": "^6.1.0",

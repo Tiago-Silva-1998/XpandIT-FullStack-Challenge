@@ -4,7 +4,7 @@ export default function (services) {
         rsp.json(movies)
     }
     const getMovieDetails = async (req, rsp) => {
-        const movie = await services.getMovieDetails(req.query.id)
+        const movie = await services.getMovieDetails(req.params.id)
         rsp.json(movie)
     }
     const getTopMoviesByRevenue = async (req, rsp) => {

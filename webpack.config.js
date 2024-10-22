@@ -17,6 +17,14 @@ module.exports = {
                     }
                 }
             },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                    },
+                ]
+            }
         ],
     },
     entry: './client/src/index.jsx',
