@@ -26,7 +26,6 @@ app.get('/api/movies', api.getAllMovies)
 // GET Movie information
 app.get('/api/movies/:id', api.getMovieDetails)
 
-
 // RQ003
 // GET Top 10 Movies by revenue, filtered by year or not
 app.get('/api/top', api.getTopMoviesByRevenue)

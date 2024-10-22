@@ -3,7 +3,7 @@ import { Client } from '@elastic/elasticsearch'
 const client = new Client({ node: process.env.ELASTICSEARCH_URL })
 const indexName = 'movies'
 
-export const getAllMovies = async (from = 0, size = 10) => {
+export const getAllMovies = async (from = 0, size = 50) => {
     try {
         const body = await client.search({
             index: indexName,
@@ -18,7 +18,7 @@ export const getAllMovies = async (from = 0, size = 10) => {
                 info: {
                     ranking: idx + from + 1,
                     title: hit._source.title,
-                    year: hit._source.year,
+                    year: hit._source.release_date.split("-")[0],
                     revenue: hit._source.revenue
                 }
             }

@@ -1,5 +1,5 @@
 export default function(data) {
-    const getAllMovies = async (from = 0, size = 10) => {
+    const getAllMovies = async (from = 0, size = 50) => {
         return await data.getAllMovies(Number(from), Number(size))
     }
     const getMovieDetails = async (id) => {
