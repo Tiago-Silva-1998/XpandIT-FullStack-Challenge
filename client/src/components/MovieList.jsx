@@ -42,12 +42,7 @@ export default function MovieList({ openPopup, changeId }) {
                             <p className="row-center">{movie.info.ranking}</p>
                             <p className="row-left">{movie.info.title}</p>
                             <p className="row-center">{movie.info.year}</p>
-                            <p className="row-left">
-                                {Number(movie.info.revenue).toLocaleString('en-US', {
-                                    style: 'currency',
-                                    currency: 'USD'
-                                })}
-                            </p>
+                            <p className="row-left">{movie.info.revenue}</p>
                             <img className="row-center" src={ openPNG } onClick={() => popup(movie.id) }/>
                         </div>
                     )

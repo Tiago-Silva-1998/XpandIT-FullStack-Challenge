@@ -18,8 +18,8 @@ export const getAllMovies = async (from = 0, size = 50) => {
             info: {
                 ranking: idx + from + 1,
                 title: hit._source.title,
-                year: hit._source.release_date.split("-")[0],
-                revenue: hit._source.revenue
+                year: dateFormat(hit._source.release_date.split("-")[0]),
+                revenue: moneyFormat(hit._source.revenue)
             }
         }
     })
@@ -30,7 +30,21 @@ export const getMovieDetails = async (id) => {
         index: indexName,
         id: id
     })
-    return response._source
+    return {
+        id: response._id,
+        info: {
+            title: response._source.title,
+            year: dateFormat(response._source.release_date),
+            genre: response._source.genres.replace(' ', ', '),
+            description: response._source.overview,
+            director: response._source.director,
+            actors: response._source.cast,
+            runtime: response._source.runtime,
+            rating: response._source.vote_average,
+            votes: response._source.vote_count,
+            revenue: moneyFormat(response._source.revenue)
+        }
+    }
 }
 
 export const getTopMoviesByRevenue = async (year, size = 10) => {
@@ -58,4 +72,17 @@ export const getTopMoviesByRevenue = async (year, size = 10) => {
         console.error(`Error retrieving top movies by revenue${year ? ` for year ${year}` : ''}:`, error)
         throw error
     }
+}
+
+const moneyFormat = (money) => {
+    return Number(money).toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0
+    })
+}
+
+const dateFormat = (date) => {
+    return date.split('-')[0]
 }

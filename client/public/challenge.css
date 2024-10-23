@@ -71,17 +71,59 @@
 }
 .popup-body {
     position: absolute;
-    width: 750px;
+    width: 800px;
     height: 700px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    text-align: left;
-    padding: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
     border: 1px solid black;
     background: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: auto;
+}
+
+.popup-body .movie-title {
+    font: normal normal 300 32px/38px Roboto;
+    color: #164E78;
+    opacity: 1;
+}
+
+.popup-body .movie-info {
+    font: normal normal normal 20px Roboto;
+    color: #78849E;
+    opacity: 1;
+    margin-bottom: -5px;
+}
+
+.popup-body .director-actors {
+    font: normal normal normal 20px Roboto;
+    color: #00BAFF;
+    opacity: 1;
+}
+
+.popup-body .category {
+    font: normal normal normal 16px Roboto;
+    color: #78849EB9;
+    opacity: 1;
+    margin-bottom: -15px;
+}
+
+.director-actors-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -20px;
+}
+
+.director-actors-container .director-container {
+    flex: 1;
+    margin-bottom: -5px;
+}
+
+.director-actors-container .actor-container {
+    flex: 3;
+    margin-bottom: -5px;
 }
 
 .close-button {
