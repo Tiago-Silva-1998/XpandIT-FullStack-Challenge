@@ -1,5 +1,5 @@
-const api = 'http://localhost:8080/'
-const movies = 'api/movies'
+const api = 'http://localhost:8080/api'
+const movies = '/movies'
 
 export function getMoviesInit(setMovieList) {
     fetch(`${api}${movies}`)
@@ -29,6 +29,16 @@ export function getMovie(id, setMovie) {
             response.json()
                 .then(data => {
                     setMovie(data)
+                })
+        )
+}
+
+export function getTop10Movies(year, setMovieList) {
+    fetch(`${api}/top?year=${year}`)
+        .then(response =>
+            response.json()
+                .then(data => {
+                    setMovieList([...data])
                 })
         )
 }

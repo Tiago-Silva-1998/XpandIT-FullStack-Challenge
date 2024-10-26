@@ -8,8 +8,8 @@ export const getAllMovies = async (from = 0, size = 50) => {
         index: indexName,
         from: from,
         size: size,
-        sort: { vote_average: { order: 'desc' } },
-        query: { range: { revenue: { gt: 0 } } }
+        query: { range: { revenue: { gt: 0 } } },
+        sort: { vote_average: { order: 'desc' } }
     })
 
     return response.hits.hits.map((hit, idx) => {
@@ -30,6 +30,7 @@ export const getMovieDetails = async (id) => {
         index: indexName,
         id: id
     })
+
     return {
         id: response._id,
         info: {
@@ -48,30 +49,27 @@ export const getMovieDetails = async (id) => {
 }
 
 export const getTopMoviesByRevenue = async (year, size = 10) => {
-    try {
-        const query = year ? { match: { year } } : { match_all: {} }
-        const { body } = await client.search({
-            index: indexName,
-            size: 0,
-            body: {
-                query,
-                aggs: {
-                    top_movies: {
-                        terms: {
-                            field: 'revenue',
-                            size,
-                            order: { _key: 'desc' },
-                        },
-                    },
-                },
-            },
-        })
+    const startDate = `${year}-01-01`
+    const endDate = `${year}-12-31`
+    const yearFilter = year ? { range: { release_date: { gte: startDate, lte: endDate } } } : { match_all: {} }
+    const response = await client.search({
+        index: indexName,
+        size: size,
+        query: yearFilter,
+        sort: { revenue: { order: 'desc' } },
+    })
 
-        return body.aggregations.top_movies.buckets
-    } catch (error) {
-        console.error(`Error retrieving top movies by revenue${year ? ` for year ${year}` : ''}:`, error)
-        throw error
-    }
+    return response.hits.hits.map((hit, idx) => {
+        return {
+            id: hit._id,
+            info: {
+                ranking: idx + 1,
+                title: hit._source.title,
+                year: dateFormat(hit._source.release_date.split("-")[0]),
+                revenue: moneyFormat(hit._source.revenue)
+            }
+        }
+    })
 }
 
 const moneyFormat = (money) => {

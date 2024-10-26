@@ -134,3 +134,73 @@
     height: 30px;
     cursor: pointer;
 }
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #78849E66;
+    border-radius: 20px;
+    opacity: 1;
+}
+
+button.active {
+    background: #00BAFF 0% 0% no-repeat padding-box;
+    border: 1px solid #78849E66;
+    border-radius: 20px;
+    opacity: 1;
+}
+
+.year-context-menu {
+    position: absolute;
+    left: 630px;
+    top: 112px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 150px;
+    text-align: center;
+}
+
+.year-context-menu p {
+    font-weight: bold;
+    color: #666;
+}
+
+.year-context-menu button {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    text-align: center;
+}
+
+.year-context-menu button:hover {
+    background-color: #f0f0f0;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: fit-content(300px) fit-content(300px);
+}
+
+
+

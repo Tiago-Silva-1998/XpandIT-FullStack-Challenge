@@ -12,7 +12,7 @@ export default function MoviePopup({ id, closePopup }) {
 
     console.log(movie)
     return (
-        <div>
+        <div className="background" onClick={closePopup}>
             { movie?
             (
                 <div className="popup-container">
